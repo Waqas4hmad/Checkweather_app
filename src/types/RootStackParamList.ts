@@ -1,4 +1,4 @@
-import { ScreenName } from '../constants/ScreenName';
+import {ScreenName} from '../enum';
 
 export type RootStackParamList = {
   [ScreenName.HOME]: undefined;

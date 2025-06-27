@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { LogBox } from 'react-native';
-import { ScreenName } from '../constants/ScreenName';
+import { ScreenName } from '../enum';
 import HomeScreen from '../screens/Home';
 import { RootStackParamList } from '../types';
 
