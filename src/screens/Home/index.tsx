@@ -1,6 +1,8 @@
 import * as Location from 'expo-location';
 import { StatusBar } from 'expo-status-bar';
 import { debounce } from 'lodash';
+import { connect } from 'react-redux';
+
 import React, { useCallback, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -10,30 +12,27 @@ import {
   Text,
   View
 } from 'react-native';
-import {
-  fetchLocations,
-  fetchWeatherByLatLong,
-  fetchWeatherForecast,
-} from '../../api/weather';
+import { fetchLocations, fetchWeatherByLatLong, fetchWeatherForecast, weatherdata } from '../../redux/action/weatherAction';
+
 import CurrentWeather from '../../components/CurrentWeather';
 import LocationsList from '../../components/LocationList';
 import SearchBar from '../../components/SearchBar';
 import { LocationData, WeatherData } from '../../types';
 import styles from './style';
-export default function Home() {
+  const Home = ({ weatherdata,fetchLocations }) => {
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [locations, setLocations] = useState<LocationData[]>([]);
   const [weather, setWeather] = useState<WeatherData>({});
   const [loading, setLoading] = useState(true);
 
   const handelLocation = (loc: { name: string }) => {
-    console.log(locations);
     setLocations([]);
     setShowSearchBar(false);
     setLoading(true);
     fetchWeatherForecast({
       cityName: loc.name,
-    }).then(data => {
+    }).then((data:WeatherData) => {
+      console.log("sfs");
       setWeather(data);
       setLoading(false);
       console.log(data);
@@ -42,7 +41,11 @@ export default function Home() {
 
   const handleSearch = (value: string) => {
     if (value.length > 2) {
-      fetchLocations({ cityName: value }).then(data => setLocations(data));
+      fetchLocations({ cityName: value }).then((data:any) => 
+        {
+          console.log("location2",data)
+          setLocations(data)
+        });
     }
   };
 
@@ -57,8 +60,9 @@ export default function Home() {
         Alert.alert('Permission to access location was denied');
         return;
       }
+
       Location.getCurrentPositionAsync({}).then(location => {
-        fetchWeatherByLatLong(location.coords).then(data => {
+        weatherdata(location.coords).then((data: React.SetStateAction<WeatherData>) => {
           setWeather(data);
           setLoading(false);
         });
@@ -115,3 +119,10 @@ export default function Home() {
     </ScrollView>
   );
 }
+const mapStateToProps = (state: { weather: any; fetchLocations:any}) => ({
+    weatherdata: state.weather,
+    fetchLocations: state.fetchLocations
+})
+
+
+export default connect (mapStateToProps, { weatherdata,fetchLocations, fetchWeatherByLatLong, fetchWeatherForecast})(Home);
