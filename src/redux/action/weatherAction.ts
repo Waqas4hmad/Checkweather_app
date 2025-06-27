@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { apiCall, forecastEndpoint, forecastLatLongpoint } from '../../api/weather';
+import { apiCall, forecastLatLongpoint } from '../../api/weather';
 import { Api_Key, Forecast_URL, Search_URL } from '../../constants';
 import { FORECASTLATLONG_FETCH, FORECASTLATLONG_FETCH_ERROR, FORECAST_FETCH, FORECAST_FETCH_ERROR, WEATHER_FETCH_ERROR } from './type';
 
@@ -36,8 +36,8 @@ export const weatherdata = (params: Params) => {
 
     return async (dispatch: Dispatch) => {
         try {
-            const cardata = await axios.get(`${Forecast_URL}${Api_Key}&q=${params.latitude},${params.longitude}&days=7&aqi=yes&alerts=yes`);
-            const weather = cardata.data;
+            const weatherdata = await axios.get(`${Forecast_URL}${Api_Key}&q=${params.latitude},${params.longitude}&days=7&aqi=yes&alerts=yes`);
+            const weather = weatherdata.data;
             if (weather) {
                 dispatch({
                     type: FORECASTLATLONG_FETCH,
@@ -48,9 +48,9 @@ export const weatherdata = (params: Params) => {
             else {
                 dispatch({
                     type: FORECASTLATLONG_FETCH_ERROR,
-                    payload: "INVALID_LOGIN"
+                    payload: "Empty Error"
                 });
-                return false;
+                return "Error";
             }
         } catch (error) {
             console.log(error);
@@ -58,7 +58,7 @@ export const weatherdata = (params: Params) => {
                 type: FORECASTLATLONG_FETCH_ERROR,
                 payload: "error.message"
             });
-            return false;
+            return "Error";
         }
 
     }
@@ -87,19 +87,23 @@ export const fetchWeatherByLatLong = (params: Params) =>
 export const fetchWeatherForecast = (params: Params) =>
     async (dispatch: any) => {
         try {
-            let forecastUrl = forecastEndpoint(params);
-            const response = apiCall<any>(forecastUrl);
+            const Forecastresponse = await axios.get(`${Forecast_URL}${Api_Key}&q=${params.cityName}&days=7&aqi=yes&alerts=yes`);
+            const response = Forecastresponse.data;
+
             if (response) {
-                dispatch({ type: FORECAST_FETCH, payload: response });
-                return true;
+                dispatch({
+                    type: FORECAST_FETCH,
+                    payload: response,
+                });
+                return response;
             }
             else {
                 dispatch({ type: FORECAST_FETCH_ERROR, payload: "Error " });
-                return false;
+                return "Error";
             }
         } catch (error) {
             dispatch({ type: FORECASTLATLONG_FETCH_ERROR, payload: "Error" });
-            return false;
+            return "Error";
         }
     }
 

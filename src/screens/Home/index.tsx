@@ -19,13 +19,14 @@ import LocationsList from '../../components/LocationList';
 import SearchBar from '../../components/SearchBar';
 import { LocationData, WeatherData } from '../../types';
 import styles from './style';
-  const Home = ({ weatherdata,fetchLocations }) => {
+  const Home = ({ weatherdata,fetchLocations, fetchWeatherForecast }) => {
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [locations, setLocations] = useState<LocationData[]>([]);
   const [weather, setWeather] = useState<WeatherData>({});
   const [loading, setLoading] = useState(true);
 
   const handelLocation = (loc: { name: string }) => {
+    console.log("ff",loc.name)
     setLocations([]);
     setShowSearchBar(false);
     setLoading(true);
@@ -35,7 +36,7 @@ import styles from './style';
       console.log("sfs");
       setWeather(data);
       setLoading(false);
-      console.log(data);
+      console.log(data)
     });
   };
 
@@ -43,7 +44,6 @@ import styles from './style';
     if (value.length > 2) {
       fetchLocations({ cityName: value }).then((data:any) => 
         {
-          console.log("location2",data)
           setLocations(data)
         });
     }
@@ -119,9 +119,10 @@ import styles from './style';
     </ScrollView>
   );
 }
-const mapStateToProps = (state: { weather: any; fetchLocations:any}) => ({
+const mapStateToProps = (state: { weather: any; fetchLocations:any; fetchWeatherForecast:any}) => ({
     weatherdata: state.weather,
-    fetchLocations: state.fetchLocations
+    fetchLocations: state.fetchLocations,
+    fetchWeatherForecast: state.fetchWeatherForecast
 })
 
 
