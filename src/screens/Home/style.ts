@@ -19,6 +19,7 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'column'
   },
+  title: { fontSize: 20, marginBottom: 20 },
   stretch: {
     width: 100,
     height: 100,
@@ -39,9 +40,9 @@ export default StyleSheet.create({
     marginRight: 10,
     marginBottom: 5
   },
-  logocard:{
-marginBottom:20,
-alignItems:'center'
+  logocard: {
+    marginBottom: 20,
+    alignItems: 'center'
   },
   box: {
     justifyContent: 'center',
@@ -73,7 +74,7 @@ alignItems:'center'
     fontSize: 18
   },
   weather_card: {
-    marginTop:20,
+    marginTop: 20,
     justifyContent: 'space-around',
     marginLeft: 10,
     marginRight: 10,
@@ -84,16 +85,16 @@ alignItems:'center'
     alignItems: 'center',
     justifyContent: 'center'
   },
-  loctext:{
-    color:'white',
-    fontWeight:'bold',
-    alignItems:'center',
-    justifyContent:'center'
+  loctext: {
+    color: 'white',
+    fontWeight: 'bold',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-  loc_semiboldtext:{
-    color:'white',
-    fontWeight:'300',
-    alignItems:'center',
-    justifyContent:'center'
+  loc_semiboldtext: {
+    color: 'white',
+    fontWeight: '300',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });

@@ -1,9 +1,10 @@
+import React, { useCallback, useEffect, useState } from 'react';
+
 import * as Location from 'expo-location';
 import { StatusBar } from 'expo-status-bar';
 import { debounce } from 'lodash';
 import { connect } from 'react-redux';
 
-import React, { useCallback, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -12,45 +13,67 @@ import {
   Text,
   View
 } from 'react-native';
-import { fetchLocations, fetchWeatherByLatLong, fetchWeatherForecast, weatherdata } from '../../redux/action/weatherAction';
 
+import {
+  fetchLocations,
+  fetchWeatherForecast,
+  weatherdata
+} from '../../redux/action/weatherAction';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import CurrentWeather from '../../components/CurrentWeather';
 import LocationsList from '../../components/LocationList';
 import SearchBar from '../../components/SearchBar';
+import { LASTLOCATION } from '../../constants';
 import { LocationData, WeatherData } from '../../types';
 import styles from './style';
-  const Home = ({ weatherdata,fetchLocations, fetchWeatherForecast }) => {
+const Home = ({ weatherdata, fetchLocations, fetchWeatherForecast }) => {
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [locations, setLocations] = useState<LocationData[]>([]);
   const [weather, setWeather] = useState<WeatherData>({});
   const [loading, setLoading] = useState(true);
 
+
   const handelLocation = (loc: { name: string }) => {
-    console.log("ff",loc.name)
     setLocations([]);
     setShowSearchBar(false);
     setLoading(true);
     fetchWeatherForecast({
       cityName: loc.name,
-    }).then((data:WeatherData) => {
-      console.log("sfs");
+    }).then(async (data: WeatherData) => {
       setWeather(data);
+      await AsyncStorage.setItem(LASTLOCATION, loc.name);
+
       setLoading(false);
-      console.log(data)
     });
   };
-
   const handleSearch = (value: string) => {
     if (value.length > 2) {
-      fetchLocations({ cityName: value }).then((data:any) => 
-        {
-          setLocations(data)
-        });
+      fetchLocations({ cityName: value }).then(async (data: any) => {
+        setLocations(data)
+      }
+      );
     }
   };
 
   useEffect(() => {
-    fetchMyWeatherData();
+    const fetchCity = async () => {
+      try {
+        const savedCity = await AsyncStorage.getItem(LASTLOCATION);
+        if (savedCity) {
+          handelLocation({ name: savedCity })
+        } else {
+          fetchMyWeatherData();
+
+        }
+      } catch (error) {
+        console.error('Error reading from AsyncStorage:', error);
+        fetchMyWeatherData();
+
+      }
+    };
+
+    fetchCity();
   }, []);
 
   const fetchMyWeatherData = async () => {
@@ -69,7 +92,6 @@ import styles from './style';
       });
     })();
   };
-
   const handleDebounce = useCallback(debounce(handleSearch, 500), []);
   const { current, location } = weather;
   return (
@@ -82,6 +104,7 @@ import styles from './style';
             source={require('../../assets/images/wheathericon.png')}
           />
           <Text style={styles.logotext}>Weather Check</Text>
+
         </View>
         {loading ? (
           <View style={styles.indicator}>
@@ -107,7 +130,7 @@ import styles from './style';
                 <Text style={styles.loctext} >
                   {location?.name},
                 </Text>
-                <Text  style={styles.loc_semiboldtext}>
+                <Text style={styles.loc_semiboldtext}>
                   {' ' + location?.country}
                 </Text>
               </View>
@@ -119,11 +142,10 @@ import styles from './style';
     </ScrollView>
   );
 }
-const mapStateToProps = (state: { weather: any; fetchLocations:any; fetchWeatherForecast:any}) => ({
-    weatherdata: state.weather,
-    fetchLocations: state.fetchLocations,
-    fetchWeatherForecast: state.fetchWeatherForecast
+const mapStateToProps = (state: { weather: any; fetchLocations: any; fetchWeatherForecast: any }) => ({
+  weatherdata: state.weather,
+  fetchLocations: state.fetchLocations,
+  fetchWeatherForecast: state.fetchWeatherForecast
 })
 
-
-export default connect (mapStateToProps, { weatherdata,fetchLocations, fetchWeatherByLatLong, fetchWeatherForecast})(Home);
+export default connect(mapStateToProps, { weatherdata, fetchLocations, fetchWeatherForecast })(Home);
