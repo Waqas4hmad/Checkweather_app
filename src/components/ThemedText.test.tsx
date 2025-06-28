@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react-native';
 import React from 'react';
-import { ThemedText } from '../ThemedText'; // adjust the import path as needed
+import { ThemedText } from './ThemedText'; // adjust the import path as needed
 
 describe('ThemedText component', () => {
   it('renders default text with default style', () => {
