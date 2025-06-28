@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import * as Location from 'expo-location';
-import { StatusBar } from 'expo-status-bar';
 import { debounce } from 'lodash';
 import { connect, useDispatch } from 'react-redux';
 
@@ -10,6 +9,7 @@ import {
   Alert,
   Image,
   ScrollView,
+  StatusBar,
   View
 } from 'react-native';
 
@@ -24,13 +24,17 @@ import CurrentWeather from '../../components/CurrentWeather';
 import LocationsList from '../../components/LocationList';
 import SearchBar from '../../components/SearchBar';
 import { ThemedText } from '../../components/ThemedText';
+import ThemeToggle from '../../components/ThemeToggle';
 import { LASTLOCATION } from '../../constants';
+import { useTheme } from '../../contexts/ThemeContext';
+
 import { LocationData, WeatherData } from '../../types';
 import styles from './style';
 
 
 const Home = ({ weatherdata, fetchLocations, fetchWeatherForecast }) => {
   const dispatch = useDispatch();
+  const { colors, theme } = useTheme();
 
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [locations, setLocations] = useState<LocationData[]>([]);
@@ -101,14 +105,14 @@ const Home = ({ weatherdata, fetchLocations, fetchWeatherForecast }) => {
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }} >
       <View style={styles.container}>
-        <StatusBar style="light" />
+         <StatusBar barStyle={theme === 'dark' ? 'light-content' : 'dark-content'} />
         <View style={styles.logocard}>
           <Image
             style={styles.stretch}
             source={require('../../assets/images/wheathericon.png')}
           />
-        <ThemedText type="title">Check Weather</ThemedText>
-
+        <ThemedText color={colors.text} type="title">Check Weather</ThemedText>
+      <ThemeToggle />
         </View>
         {loading ? (
           <View style={styles.indicator}>
@@ -132,8 +136,8 @@ const Home = ({ weatherdata, fetchLocations, fetchWeatherForecast }) => {
             <View style={styles.weather_card}>
               <View style={styles.weatherinfo}>
                
-                <ThemedText type="subtitle">{location?.name},</ThemedText>
-                <ThemedText type="defaultSemiBold">{' ' + location?.country}</ThemedText>
+                <ThemedText color={colors.text} type="subtitle">{location?.name},</ThemedText>
+                <ThemedText color={colors.text} type="defaultSemiBold">{' ' + location?.country}</ThemedText>
               </View>
               <CurrentWeather current={current} />
                 

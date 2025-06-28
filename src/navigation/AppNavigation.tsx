@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { LogBox } from 'react-native';
 import { Provider as StoreProvider } from "react-redux";
+import { ThemeProvider } from '../contexts/ThemeContext';
 
 import { ScreenName } from '../enum';
 import store from '../redux/store';
@@ -17,6 +18,7 @@ LogBox.ignoreLogs([
 export default function AppNavigation() {
   return (
     <StoreProvider store={store}>
+      <ThemeProvider>
       <Stack.Navigator>
         <Stack.Screen
           name={ScreenName.HOME}
@@ -24,6 +26,7 @@ export default function AppNavigation() {
           component={HomeScreen}
         />
       </Stack.Navigator>
+      </ThemeProvider>
     </StoreProvider>
 
   );

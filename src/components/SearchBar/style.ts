@@ -11,7 +11,6 @@ export default StyleSheet.create({
     textinput: {
         width: '90%',
         height: 40,
-        borderColor: 'black',
         borderWidth: 1,
         paddingLeft: 15,
         marginRight: 5

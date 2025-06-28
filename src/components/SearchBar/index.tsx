@@ -1,6 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React, { Dispatch, SetStateAction } from 'react';
 import { TextInput, TouchableOpacity, View } from 'react-native';
+import { useTheme } from '../../contexts/ThemeContext';
 import styles from './style';
 interface SearchBarProps {
   showSearchBar: boolean;
@@ -13,6 +14,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
   setShowSearchBar,
   handleDebounce,
 }) => {
+    const { colors } = useTheme();
+
   return (
     <View
       style={styles.container}
@@ -21,8 +24,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
         <TextInput
           onChangeText={handleDebounce}
           placeholder="Search City"
-          placeholderTextColor={'white'}
-          style={styles.textinput}
+          placeholderTextColor={colors.text}
+          
+          style={[styles.textinput, { borderColor: colors?.border ,color: colors.text,}]}
+
         />
       ) : null}
 

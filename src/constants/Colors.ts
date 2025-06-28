@@ -1,22 +1,26 @@
 
 const tintColorLight = '#0a7ea4';
 const tintColorDark = '#fff';
+interface ThemeColors {
+  background: string;
+  text: string;
+  card: string;
+  border: string;
+  primary: string;
+}
 
-export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
-  },
+export const lightColors: ThemeColors = {
+  background: '#f2f2f2',
+  text: '#000000',
+  card: '#ffffff',
+  border: '#000000',
+  primary: '#007bff',
+};
+
+export const darkColors: ThemeColors = {
+  background: '#121212',
+  text: '#ffffff',
+  card: '#1e1e1e',
+  border: '#ffffff',
+  primary: '#0a84ff',
 };
