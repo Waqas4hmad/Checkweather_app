@@ -68,35 +68,35 @@ Project Structure
 arduino
 Copy
 Edit
-.
-├── app
-├── src
-│   ├── assets
-│   ├── components
-│   │   └── CurrentWeather
-│   │   └── LocationList
-│   │   └── SearchBar
-│   │   └── ThemedText.tsx
-│   │   └── ThemeToggle.tsx
-│   ├── constants
-│   │   └── index.ts
-│   │   └── Colors.ts
-│   │   └── ScreenName.ts
-│   ├── contexts
-│   │   └── ThemeContext.tsx
-│   ├── enum
-│   ├── helpers
-│   ├── navigation
-│   │   └── AppNavigation.tsx
-│   ├── redux
-│   │   ├── action
-│   │   └── reducer
-│   │   └── store
-│   ├── screens
-│   │   ├── Home
-│   ├── utils
-│   │   └── storage.ts
-│   └── types
+
+├── app                                                                             
+├── src<br />
+│   ├── assets<br />
+│   ├── components<br />
+│   │        └── CurrentWeather<br />
+│   │        └── LocationList<br />
+│   │        └── SearchBar<br />
+│   │        └── ThemedText.tsx<br />
+│   │        └── ThemeToggle.tsx<br />
+│   ├── constants<br />
+│   │        └── index.ts<br />
+│   │        └── Colors.ts<br />
+│   │        └── ScreenName.ts<br />
+│   ├── contexts<br />
+│   │        └── ThemeContext.tsx<br />
+│   ├── enum<br />
+│   ├── helpers<br />
+│   ├── navigation<br />
+│   │        └── AppNavigation.tsx<br />
+│   ├── redux<br />
+│   │       ├── action<br />
+│   │       └── reducer<br />
+│   │       └── store<br />
+│   ├── screens<br />
+│   │      ├── Home<br />
+│   ├── utils<br />
+│   │      └── storage.ts<br />
+│   └── types<br />
 
 
 ### State Management (Redux)
