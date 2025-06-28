@@ -3,14 +3,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import * as Location from 'expo-location';
 import { StatusBar } from 'expo-status-bar';
 import { debounce } from 'lodash';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 
 import {
   ActivityIndicator,
   Alert,
   Image,
   ScrollView,
-  Text,
   View
 } from 'react-native';
 
@@ -24,10 +23,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import CurrentWeather from '../../components/CurrentWeather';
 import LocationsList from '../../components/LocationList';
 import SearchBar from '../../components/SearchBar';
+import { ThemedText } from '../../components/ThemedText';
 import { LASTLOCATION } from '../../constants';
 import { LocationData, WeatherData } from '../../types';
 import styles from './style';
+
+
 const Home = ({ weatherdata, fetchLocations, fetchWeatherForecast }) => {
+  const dispatch = useDispatch();
+
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [locations, setLocations] = useState<LocationData[]>([]);
   const [weather, setWeather] = useState<WeatherData>({});
@@ -103,7 +107,7 @@ const Home = ({ weatherdata, fetchLocations, fetchWeatherForecast }) => {
             style={styles.stretch}
             source={require('../../assets/images/wheathericon.png')}
           />
-          <Text style={styles.logotext}>Weather Check</Text>
+        <ThemedText type="title">Check Weather</ThemedText>
 
         </View>
         {loading ? (
@@ -127,14 +131,12 @@ const Home = ({ weatherdata, fetchLocations, fetchWeatherForecast }) => {
             </View>
             <View style={styles.weather_card}>
               <View style={styles.weatherinfo}>
-                <Text style={styles.loctext} >
-                  {location?.name},
-                </Text>
-                <Text style={styles.loc_semiboldtext}>
-                  {' ' + location?.country}
-                </Text>
+               
+                <ThemedText type="subtitle">{location?.name},</ThemedText>
+                <ThemedText type="defaultSemiBold">{' ' + location?.country}</ThemedText>
               </View>
               <CurrentWeather current={current} />
+                
             </View>
           </View>
         )}

@@ -69,10 +69,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginTop: 20,
   },
-  logotext: {
-    fontWeight: 'bold',
-    fontSize: 18
-  },
+
   weather_card: {
     marginTop: 20,
     justifyContent: 'space-around',
@@ -85,12 +82,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  loctext: {
-    color: 'white',
-    fontWeight: 'bold',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
+
   loc_semiboldtext: {
     color: 'white',
     fontWeight: '300',

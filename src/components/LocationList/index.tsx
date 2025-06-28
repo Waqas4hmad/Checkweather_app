@@ -1,7 +1,8 @@
 import { FontAwesome } from '@expo/vector-icons';
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { LocationData } from '../..//types';
+import { ThemedText } from '../ThemedText';
 import styles from './style';
 interface LocationsListProps {
   locations: LocationData[];
@@ -25,12 +26,10 @@ const LocationsList: React.FC<LocationsListProps> = ({
             key={index}
             style={styles.list}>
             <FontAwesome name="map-marker" size={20} color={'black'} />
-            <Text style={styles.text}>
-              {loc?.name}
-            </Text>
-            <Text style={styles.text}>
-              {loc?.country}
-            </Text>
+                    <ThemedText darkColor='#1D3D47' type="defaultSemiBold" >  {loc?.name}</ThemedText>
+                    <ThemedText darkColor='#1D3D47' type="defaultSemiBold" >, {loc?.country}</ThemedText>
+
+      
           </TouchableOpacity>
         );
       })}
