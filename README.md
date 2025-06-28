@@ -109,6 +109,9 @@ List of searched cities
 
 store.ts is the Redux store configuration
 
+### Dark Mode Toggle with Theme Persistence
+This feature enables Dark Mode/Light Mode toggling in the React Native app, allowing users to switch between light and dark themes. The selected theme is persisted using AsyncStorage, ensuring the app remembers the user’s preference even after closing or restarting the app.
+
 ### AsyncStorage
 We use AsyncStorage to:
 
