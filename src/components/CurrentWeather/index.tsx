@@ -11,8 +11,8 @@ type CurrentWeatherProp = {
   current?: CurrentWeatherData;
 };
 const CurrentWeather: React.FC<CurrentWeatherProp> = ({ current }) => {
-    const { colors, theme } = useTheme();
-  
+  const { colors, theme } = useTheme();
+
   return (
     <>
       <View style={styles.icon_card}>

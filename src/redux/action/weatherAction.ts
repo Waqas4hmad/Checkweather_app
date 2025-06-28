@@ -1,7 +1,6 @@
 
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { apiCall, forecastLatLongpoint } from '../../api/weather';
 import { Api_Key, Forecast_URL, Search_URL } from '../../constants';
 import { FORECASTLATLONG_FETCH, FORECASTLATLONG_FETCH_ERROR, FORECAST_FETCH, FORECAST_FETCH_ERROR, WEATHER_FETCH_ERROR } from './type';
 
@@ -63,26 +62,7 @@ export const weatherdata = (params: Params) => {
 
     }
 }
-export const fetchWeatherByLatLong = (params: Params) =>
-    async (dispatch: Dispatch) => {
 
-        try {
-            console.log("dd")
-            let forecastUrl = forecastLatLongpoint(params);
-            const response = apiCall<any>(forecastUrl);
-            if (response) {
-                dispatch({ type: FORECASTLATLONG_FETCH, payload: response });
-                return true;
-            }
-            else {
-                dispatch({ type: FORECASTLATLONG_FETCH_ERROR, payload: "Error " });
-                return false;
-            }
-        } catch (error) {
-            dispatch({ type: FORECASTLATLONG_FETCH_ERROR, payload: "Error" });
-            return false;
-        }
-    }
 
 export const fetchWeatherForecast = (params: Params) =>
     async (dispatch: any) => {
