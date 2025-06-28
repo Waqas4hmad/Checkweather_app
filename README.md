@@ -148,7 +148,34 @@ Add this in your app.json:
     "permissions": ["ACCESS_FINE_LOCATION"]
   }
 }
+### Unit Tests Implemented
+##### ThemedText Component
+Validates that the ThemedText component:
 
+Renders correctly with default and custom props
+
+Applies different type styles (default, title, link, etc.)
+
+Merges color and style props as expected
+
+##### AsyncStorage Logic
+Tested functionality involving AsyncStorage, including:
+
+Saving and retrieving the last searched city or user preference
+
+Ensuring the data persists correctly between app restarts
+
+### Test Setup
+Testing is powered by Jest and React Native Testing Library
+
+The jest-expo preset is used for proper Expo compatibility
+
+AsyncStorage is mocked using @react-native-async-storage/async-storage/jest/async-storage-mock
+
+### Running Tests
+To run all tests:
+
+yarn test
 ### Contributing
 Feel free to fork and improve. Pull requests are welcome!
 

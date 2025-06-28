@@ -19,15 +19,14 @@ import {
   weatherdata
 } from '../../redux/action/weatherAction';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import CurrentWeather from '../../components/CurrentWeather';
 import LocationsList from '../../components/LocationList';
 import SearchBar from '../../components/SearchBar';
 import { ThemedText } from '../../components/ThemedText';
 import ThemeToggle from '../../components/ThemeToggle';
-import { LASTLOCATION } from '../../constants';
 import { useTheme } from '../../contexts/ThemeContext';
 
+import { getStorageCity, saveStorageCity } from '../../libs/asyncStorage/lastCityStorage';
 import { LocationData, WeatherData } from '../../types';
 import styles from './style';
 
@@ -50,8 +49,7 @@ const Home = ({ weatherdata, fetchLocations, fetchWeatherForecast }) => {
       cityName: loc.name,
     }).then(async (data: WeatherData) => {
       setWeather(data);
-      await AsyncStorage.setItem(LASTLOCATION, loc.name);
-
+      saveStorageCity(loc.name)
       setLoading(false);
     });
   };
@@ -67,12 +65,11 @@ const Home = ({ weatherdata, fetchLocations, fetchWeatherForecast }) => {
   useEffect(() => {
     const fetchCity = async () => {
       try {
-        const savedCity = await AsyncStorage.getItem(LASTLOCATION);
-        if (savedCity) {
-          handelLocation({ name: savedCity })
+        const city = getStorageCity();
+        if (city) {
+          handelLocation({ name: JSON.stringify(city) })
         } else {
           fetchMyWeatherData();
-
         }
       } catch (error) {
         console.error('Error reading from AsyncStorage:', error);
@@ -105,14 +102,14 @@ const Home = ({ weatherdata, fetchLocations, fetchWeatherForecast }) => {
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }} >
       <View style={styles.container}>
-         <StatusBar barStyle={theme === 'dark' ? 'light-content' : 'dark-content'} />
+        <StatusBar barStyle={theme === 'dark' ? 'light-content' : 'dark-content'} />
         <View style={styles.logocard}>
           <Image
             style={styles.stretch}
             source={require('../../assets/images/wheathericon.png')}
           />
-        <ThemedText color={colors.text} type="title">Check Weather</ThemedText>
-      <ThemeToggle />
+          <ThemedText color={colors.text} type="title">Check Weather</ThemedText>
+          <ThemeToggle />
         </View>
         {loading ? (
           <View style={styles.indicator}>
@@ -135,12 +132,12 @@ const Home = ({ weatherdata, fetchLocations, fetchWeatherForecast }) => {
             </View>
             <View style={styles.weather_card}>
               <View style={styles.weatherinfo}>
-               
+
                 <ThemedText color={colors.text} type="subtitle">{location?.name},</ThemedText>
                 <ThemedText color={colors.text} type="defaultSemiBold">{' ' + location?.country}</ThemedText>
               </View>
               <CurrentWeather current={current} />
-                
+
             </View>
           </View>
         )}
