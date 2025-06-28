@@ -1,50 +1,153 @@
-# Welcome to your Expo app 👋
+# 🌦 React Native  Check Weather App
+A weather app built with React Native (Expo) that lets users:
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Search for any city in the world using WeatherAPI
 
-## Get started
+View a list of previously searched cities
 
-1. Install dependencies
+Tap on a city to see detailed weather data
 
-   ```bash
-   npm install
-   ```
+Automatically display the current location weather if no city is selected
 
-2. Start the app
+Store the last selected city using AsyncStorage
 
-   ```bash
-   npx expo start
-   ```
+Manage state using Redux
 
-In the output, you'll find options to open the app in a
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+🧰 Tech Stack
+React Native (with Expo)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+TypeScript
 
-## Get a fresh project
+WeatherAPI (https://www.weatherapi.com/)
 
-When you're ready, run:
+Axios for API calls
 
-```bash
-npm run reset-project
-```
+Redux & Redux Toolkit
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+AsyncStorage for persistence
 
-## Learn more
+Expo Location for GPS-based weather
 
-To learn more about developing your project with Expo, look at the following resources:
+🚀 Features
+Search any city and fetch weather info
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Store and list previously searched city
 
-## Join the community
+Detect and show weather for the current location
 
-Join our community of developers creating universal apps.
+Redux-powered state management
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Persist last selected city using AsyncStorage
+
+🔧 Project Setup
+
+1. Clone the Repo
+git clone  https://github.com/Waqas4hmad/Checkwheater.git
+cd checkweather
+
+2. Install Dependencies
+Make sure you have Expo CLI installed:
+npm install -g expo-cli
+Now install project dependencies:
+
+3. Set Up WeatherAPI
+Create an account at WeatherAPI
+
+Generate your API key
+4. Configure API Key
+Create a new file:
+
+touch src/config.ts
+Add the weather key in.env file:
+
+// .env
+export const EXPO_PUBLIC_WEATHER_API_KEY = "your_api_key_here";
+
+Project Structure
+arduino
+Copy
+Edit
+.
+├── app
+├── src
+│   ├── assets
+│   ├── components
+│   │   └── CurrentWeather
+│   │   └── LocationList
+│   │   └── SearchBar
+│   │   └── ThemedText.tsx
+│   │   └── ThemeToggle.tsx
+│   ├── constants
+│   │   └── index.ts
+│   │   └── Colors.ts
+│   │   └── ScreenName.ts
+│   ├── contexts
+│   │   └── ThemeContext.tsx
+│   ├── enum
+│   ├── helpers
+│   ├── navigation
+│   │   └── AppNavigation.tsx
+│   ├── redux
+│   │   ├── action
+│   │   └── reducer
+│   │   └── store
+│   ├── screens
+│   │   ├── Home
+│   ├── utils
+│   │   └── storage.ts
+│   └── types
+
+
+### State Management (Redux)
+
+Weather data
+
+Selected city
+
+List of searched cities
+
+store.ts is the Redux store configuration
+
+### AsyncStorage
+We use AsyncStorage to:
+
+Save the last selected city
+
+Load it on app launch to display its weather data
+
+### Location (Expo Location)
+Used when there’s no selected city, to detect and display the current location weather.
+
+Permissions handled via expo-location.
+
+### API Integration (Axios)
+All API logic is abstracted in:
+
+### Running the App
+
+npx expo start
+Scan the QR code using Expo Go on your iOS or Android device.
+
+### Permissions Required
+Add this in your app.json:
+
+"expo": {
+  "plugins": [
+    [
+      "expo-location",
+      {
+        "isAndroidBackgroundLocationEnabled": false
+      }
+    ]
+  ],
+  "android": {
+    "permissions": ["ACCESS_FINE_LOCATION"]
+  }
+}
+
+### Contributing
+Feel free to fork and improve. Pull requests are welcome!
+
+Let me know if you also want the complete working codebase for the above README.
+
