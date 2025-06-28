@@ -73,29 +73,29 @@ Edit
 ├── src<br />
 │   ├── assets<br />
 │   ├── components<br />
-│   │   └── CurrentWeather<br />
-│   │   └── LocationList<br />
-│   │   └── SearchBar<br />
-│   │   └── ThemedText.tsx<br />
-│   │   └── ThemeToggle.tsx<br />
+│   │        └── CurrentWeather<br />
+│   │        └── LocationList<br />
+│   │        └── SearchBar<br />
+│   │        └── ThemedText.tsx<br />
+│   │        └── ThemeToggle.tsx<br />
 │   ├── constants<br />
-│   │   └── index.ts<br />
-│   │   └── Colors.ts<br />
-│   │   └── ScreenName.ts<br />
+│   │        └── index.ts<br />
+│   │        └── Colors.ts<br />
+│   │        └── ScreenName.ts<br />
 │   ├── contexts<br />
-│   │   └── ThemeContext.tsx<br />
+│   │        └── ThemeContext.tsx<br />
 │   ├── enum<br />
 │   ├── helpers<br />
 │   ├── navigation<br />
-│   │   └── AppNavigation.tsx<br />
+│   │        └── AppNavigation.tsx<br />
 │   ├── redux<br />
-│   │   ├── action<br />
-│   │   └── reducer<br />
-│   │   └── store<br />
+│   │       ├── action<br />
+│   │       └── reducer<br />
+│   │       └── store<br />
 │   ├── screens<br />
-│   │   ├── Home<br />
+│   │      ├── Home<br />
 │   ├── utils<br />
-│   │   └── storage.ts<br />
+│   │      └── storage.ts<br />
 │   └── types<br />
 
 
